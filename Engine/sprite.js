@@ -129,6 +129,16 @@ class Sprite {
             }
             return null;
         }
+        if (typeof other === "string") {
+            for (let sprite of Sprite.sprites) {
+                if (sprite.name === other) {
+                    if (this.isTouching(sprite)) {
+                        return sprite;
+                    }
+                }
+            }
+            return null;
+        }
         if (this.shape instanceof Circle && (other.shape instanceof Rect || other.shape instanceof ImageShape)) {
             if (CheckCircleRectangle(this.shape, other.shape)) {
                 return other;
@@ -143,7 +153,10 @@ class Sprite {
         return null;
     }
 
-    remove() {
+    remove(container = null) {
+        if (container) {
+            container.splice(container.indexOf(this), 1);
+        }
         this.destroy = true;
     }
 }

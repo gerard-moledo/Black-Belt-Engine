@@ -1,5 +1,12 @@
 (function() {
     function loadAssets() {
+        for (var asset of assets) {
+            console.log(asset);
+            if (asset.includes("wav")) {
+                Assets.audio[asset.replace(".wav", "")] = new Audio("Assets/" + asset);
+            }
+        }
+
         for (let i = 1; i <= 4; i++) {
             numAssets += 1;
 
@@ -26,6 +33,13 @@
                 }
             }
         }
+
+        sfx = [];
+        sfx.push(new Audio("Assets/bounce.wav"));
+        sfx.push(new Audio("Assets/hit1.wav"));
+        sfx.push(new Audio("Assets/hit2.wav"));
+        sfx.push(new Audio("Assets/hit3.wav"));
+        sfx.push(new Audio("Assets/hit4.wav"));
     }
 
     function input() {
@@ -94,6 +108,7 @@
     
     loadAssets();
     start();
+    window.focus();
     requestAnimationFrame(gameLoop);
 
     function onKeyDown(e) {
